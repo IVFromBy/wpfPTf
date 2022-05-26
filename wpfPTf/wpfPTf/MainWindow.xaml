@@ -1,0 +1,40 @@
+﻿<Window x:Class="wpfPTf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfPTf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="250" Width="450">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0">
+            <TabItem Header="Tlk">
+                <Grid>
+                    <GroupBox Grid.Row="0" Grid.Column="1" >
+                        <StackPanel>
+                            <DockPanel  Margin="0,4">
+                                <TextBlock Text="максимальное количество символов в строке"/>
+                                <TextBox Name="tbMaxLineLen" Width="30" Text="37" TextAlignment="Center" HorizontalAlignment="Right" Margin="10,0"/>
+                            </DockPanel>
+                            <DockPanel  Margin="0,4">
+                                <TextBlock Text="длинна для вырезания"/>
+                                <TextBox Name="tbCutLent" Width="30" Text="12" TextAlignment="Center" HorizontalAlignment="Right" Margin="10,0"/>
+                            </DockPanel>
+                            <ProgressBar Height="30" Margin="10" Name="pbVal" IsIndeterminate="True" Visibility="Hidden"/>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="txt">
+
+            </TabItem>
+        </TabControl>
+        <DockPanel Grid.Row="1"   Margin="10,4" Height="40">
+            <Button Content="Обработать" Name="btnProcess" Click="btnProcess_Click"/>
+        </DockPanel>
+    </Grid>
+</Window>

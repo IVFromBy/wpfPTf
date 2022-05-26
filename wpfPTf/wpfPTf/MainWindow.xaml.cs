@@ -29,6 +29,7 @@ namespace wpfPTf
         private async void btnProcess_Click(object sender, RoutedEventArgs e)
         {
             btnProcess.IsEnabled = false;
+            tcMain.IsEnabled = false;
             pbVal.Visibility = Visibility.Visible;
             var openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
@@ -51,11 +52,21 @@ namespace wpfPTf
 
                             string curLine = await r.ReadLineAsync();
 
-                            if (curLine.Length == maxLineLen)
-                            {
-                                _resultlist.Add(curLine.Substring(maxLineLen - cutLen, cutLen));
 
+                            if (tcMain.TabIndex == 0)
+                            {
+                                if (curLine.Length == maxLineLen)
+                                {
+                                    _resultlist.Add(curLine.Substring(maxLineLen - cutLen, cutLen));
+                                }
                             }
+                            else
+                            {
+                                parseF2(curLine);
+                            }
+
+
+
 
                         }
 
@@ -76,9 +87,24 @@ namespace wpfPTf
                 {
                     pbVal.Visibility = Visibility.Collapsed;
                     btnProcess.IsEnabled = true;
+                    tcMain.IsEnabled = true;
                 }
             }
 
         }
+
+        private void parseF2(string line)
+        {
+            var data = line.Split('_');
+
+            if (data.Length > 3)
+            {
+                _resultlist.Add(data[2]);
+
+                if (long.TryParse(data[5], out long val))
+                    _resultlist.Add(data[5]);
+            }
+        }
+
     }
 }

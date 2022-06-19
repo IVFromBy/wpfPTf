@@ -30,7 +30,10 @@
                 </Grid>
             </TabItem>
             <TabItem Header="txt">
-
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Учитывать телефон справа"/>
+                    <CheckBox Name="getPhonefromRigthSide"/>
+                </StackPanel>
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="1"   Margin="10,4" >

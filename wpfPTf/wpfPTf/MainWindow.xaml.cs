@@ -21,6 +21,7 @@ namespace wpfPTf
     public partial class MainWindow : Window
     {
         private List<string> _resultlist = new List<string>();
+        bool? _getPhonefromRigthSide = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace wpfPTf
                 const int fileBuff = 1024 * 1024;
                 int maxLineLen = Int32.Parse(tbMaxLineLen.Text);
                 int cutLen = Int32.Parse(tbCutLent.Text);
+                _getPhonefromRigthSide = getPhonefromRigthSide.IsChecked;
                 try
                 {
                     using (StreamReader r = new StreamReader(new BufferedStream(File.OpenRead(openFileDialog.FileName), fileBuff)))
@@ -101,7 +103,7 @@ namespace wpfPTf
             {
                 _resultlist.Add(data[2]);
 
-                if (long.TryParse(data[5], out long val))
+                if (_getPhonefromRigthSide == true && long.TryParse(data[5], out long val))
                     _resultlist.Add(data[5]);
             }
         }

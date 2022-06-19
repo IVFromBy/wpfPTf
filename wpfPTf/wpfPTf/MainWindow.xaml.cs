@@ -78,7 +78,7 @@ namespace wpfPTf
                     string newFileName = System.IO.Path.GetDirectoryName(openFileDialog.FileName) + "\\" +
                         System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName) + "_res.txt";
                     
-                    await File.WriteAllLinesAsync(newFileName, _resultDictionary.Select(x => x.Key + " - " + x.Value));
+                    await File.WriteAllLinesAsync(newFileName, _resultDictionary.Select(x => string.Format($"{x.Key};{x.Value.Item1};{x.Value.Item2}")));
 
                     MessageBox.Show($"Обработка окончена!\nРезультат сохранён в {newFileName}", "Результат", MessageBoxButton.OK, MessageBoxImage.Information);
 

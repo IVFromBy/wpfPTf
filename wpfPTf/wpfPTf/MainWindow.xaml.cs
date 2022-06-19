@@ -56,11 +56,12 @@ namespace wpfPTf
                             string curLine = await r.ReadLineAsync();
 
 
-                            if (tcMain.TabIndex == 0)
+                            if (tcMain.SelectedIndex == 0)
                             {
                                 if (curLine.Length == maxLineLen)
                                 {
-                                    _resultlist.Add(curLine.Substring(maxLineLen - cutLen, cutLen));
+                                    AddToDictionry(curLine.Substring(maxLineLen - cutLen, cutLen), 0);
+                                    
                                 }
                             }
                             else
@@ -76,8 +77,7 @@ namespace wpfPTf
                     }
                     string newFileName = System.IO.Path.GetDirectoryName(openFileDialog.FileName) + "\\" +
                         System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName) + "_res.txt";
-
-                    //await File.WriteAllLinesAsync(newFileName, _resultlist.Distinct().ToList());
+                    
                     await File.WriteAllLinesAsync(newFileName, _resultDictionary.Select(x => x.Key + " - " + x.Value));
 
                     MessageBox.Show($"Обработка окончена!\nРезультат сохранён в {newFileName}", "Результат", MessageBoxButton.OK, MessageBoxImage.Information);

@@ -22,6 +22,7 @@ namespace wpfPTf
     {
         private List<string> _resultlist = new List<string>();
         bool? _getPhonefromRigthSide = false;
+        Dictionary<string, Tuple<int, long>> _resultDictionary = new Dictionary<string, Tuple<int, long>>();
         public MainWindow()
         {
             InitializeComponent();
@@ -76,7 +77,8 @@ namespace wpfPTf
                     string newFileName = System.IO.Path.GetDirectoryName(openFileDialog.FileName) + "\\" +
                         System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName) + "_res.txt";
 
-                    await File.WriteAllLinesAsync(newFileName, _resultlist.Distinct().ToList());
+                    //await File.WriteAllLinesAsync(newFileName, _resultlist.Distinct().ToList());
+                    await File.WriteAllLinesAsync(newFileName, _resultDictionary.Select(x => x.Key + " - " + x.Value));
 
                     MessageBox.Show($"Обработка окончена!\nРезультат сохранён в {newFileName}", "Результат", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -101,12 +103,37 @@ namespace wpfPTf
 
             if (data.Length > 3)
             {
-                _resultlist.Add(data[2]);
+                AddToDictionry(data[2], GetSize(data[0]));
 
                 if (_getPhonefromRigthSide == true && long.TryParse(data[5], out long val))
-                    _resultlist.Add(data[5]);
+                    AddToDictionry(data[5], GetSize(data[0]));
             }
         }
 
+
+        private async void AddToDictionry(string phone, long pSize)
+        {
+            if (!_resultDictionary.ContainsKey(phone))
+            {
+                _resultDictionary.Add(phone, Tuple.Create(1, pSize));
+            }
+            else
+            {
+                Tuple<int, long> val = _resultDictionary[phone];
+                _resultDictionary[phone] = Tuple.Create(val.Item1 + 1, val.Item2 + pSize);
+            }
+        }
+
+        private long GetSize(string line)
+        {
+            string size = "0";
+            if (_getPhonefromRigthSide == false)
+            {// Считаем размер только у телефонов слева.
+                size = line.Substring(22, line.Length - 22);
+
+                size = size.Substring(0, size.Length - 21);
+            }
+            return long.Parse(size);
+        }
     }
 }

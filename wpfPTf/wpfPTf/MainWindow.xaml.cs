@@ -119,7 +119,7 @@ namespace wpfPTf
                 AddToDictionry(data[2], GetSize(data[0]));
 
                 if (_getPhonefromRigthSide == true && long.TryParse(data[5], out long val))
-                    AddToDictionry(data[5], 0);
+                    AddToDictionry(data[5], GetSize(data[0]));
             }
         }
 

@@ -41,7 +41,7 @@ namespace wpfPTf
             if (openFileDialog.ShowDialog() == true)
             {
                 _resultlist.Clear();
-
+                _resultDictionary.Clear();
                 const int fileBuff = 1024 * 1024;
                 int maxLineLen = Int32.Parse(tbMaxLineLen.Text);
                 int cutLen = Int32.Parse(tbCutLent.Text);

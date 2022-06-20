@@ -63,7 +63,7 @@ namespace wpfPTf
                                 if (curLine.Length == maxLineLen)
                                 {
                                     AddToDictionry(curLine.Substring(maxLineLen - cutLen, cutLen), 0);
-                                    
+
                                 }
                             }
                             else
@@ -74,7 +74,7 @@ namespace wpfPTf
                                     {
                                         parseF2(curLine);
                                     }
-                                    
+
                                 }
                                 else
                                 {
@@ -90,7 +90,7 @@ namespace wpfPTf
                     }
                     string newFileName = System.IO.Path.GetDirectoryName(openFileDialog.FileName) + "\\" +
                         System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName) + "_res.txt";
-                    
+
                     await File.WriteAllLinesAsync(newFileName, _resultDictionary.Select(x => string.Format($"{x.Key};{x.Value.Item1};{x.Value.Item2}")));
 
                     MessageBox.Show($"Обработка окончена!\nРезультат сохранён в {newFileName}", "Результат", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -119,7 +119,7 @@ namespace wpfPTf
                 AddToDictionry(data[2], GetSize(data[0]));
 
                 if (_getPhonefromRigthSide == true && long.TryParse(data[5], out long val))
-                    AddToDictionry(data[5], GetSize(data[0]));
+                    AddToDictionry(data[5], 0);
             }
         }
 
@@ -139,13 +139,12 @@ namespace wpfPTf
 
         private long GetSize(string line)
         {
-            string size = "0";
-            if (_getPhonefromRigthSide == false)
-            {// Считаем размер только у телефонов слева.
-                size = line.Substring(22, line.Length - 22);
+            string size;
 
-                size = size.Substring(0, size.Length - 21);
-            }
+            size = line.Substring(22, line.Length - 22);
+
+            size = size.Substring(0, size.Length - 21);
+
             return long.Parse(size);
         }
     }

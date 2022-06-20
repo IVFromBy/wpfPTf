@@ -30,9 +30,15 @@
                 </Grid>
             </TabItem>
             <TabItem Header="txt">
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <TextBlock Text="Учитывать телефон справа"/>
-                    <CheckBox Name="getPhonefromRigthSide"/>
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <CheckBox Name="getPhonefromRigthSide"/>
+                        <TextBlock Text="Учитывать телефон справа"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <CheckBox Name="cbOnlyWav"/>
+                        <TextBlock Text="Учитывать только .wav"/>
+                    </StackPanel>                    
                 </StackPanel>
             </TabItem>
         </TabControl>

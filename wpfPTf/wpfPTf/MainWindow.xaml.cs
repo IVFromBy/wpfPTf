@@ -22,6 +22,7 @@ namespace wpfPTf
     {
         private List<string> _resultlist = new List<string>();
         bool? _getPhonefromRigthSide = false;
+        bool? _getOnlyWav = false;
         Dictionary<string, Tuple<int, long>> _resultDictionary = new Dictionary<string, Tuple<int, long>>();
         public MainWindow()
         {
@@ -45,6 +46,7 @@ namespace wpfPTf
                 int maxLineLen = Int32.Parse(tbMaxLineLen.Text);
                 int cutLen = Int32.Parse(tbCutLent.Text);
                 _getPhonefromRigthSide = getPhonefromRigthSide.IsChecked;
+                _getOnlyWav = cbOnlyWav.IsChecked;
                 try
                 {
                     using (StreamReader r = new StreamReader(new BufferedStream(File.OpenRead(openFileDialog.FileName), fileBuff)))
@@ -66,7 +68,18 @@ namespace wpfPTf
                             }
                             else
                             {
-                                parseF2(curLine);
+                                if (_getOnlyWav == true)
+                                {
+                                    if (curLine.EndsWith(".wav"))
+                                    {
+                                        parseF2(curLine);
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    parseF2(curLine);
+                                }
                             }
 
 
